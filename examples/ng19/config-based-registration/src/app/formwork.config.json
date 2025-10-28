@@ -1,0 +1,13 @@
+{
+  "registrationType": "config",
+  "viewProviderHelperPath": "app/shared/helper",
+  "control": {
+    "hostDirectiveHelperPath": "app/shared/helper"
+  },
+  "group": {
+    "hostDirectiveHelperPath": "app/shared/helper"
+  },
+  "block": {
+    "hostDirectiveHelperPath": "app/shared/helper"
+  }
+}
