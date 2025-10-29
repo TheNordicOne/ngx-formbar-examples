@@ -162,8 +162,8 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
           type: 'text',
           label: 'Asset (Other)',
           hidden: 'details.affectedAsset !== "other"',
-          hideStrategy: 'remove',
-          valueStrategy: 'reset',
+          hideStrategy: 'keep',
+          valueStrategy: 'last',
         },
         description: {
           type: 'textarea',
@@ -530,7 +530,6 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
       type: 'note',
       isControl: false,
       hidden: '!privacyAck',
-      hideStrategy: 'keep',
       message:
         'Your request may be shared with service providers for resolution.',
       severity: 'info',
