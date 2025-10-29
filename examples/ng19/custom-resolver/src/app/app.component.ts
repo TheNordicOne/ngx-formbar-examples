@@ -1,7 +1,10 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {maintenanceForm} from './forms/maintenance-form';
-import {NgxFwFormComponent} from 'ngx-formwork';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { maintenanceForm } from './forms/maintenance-form';
+import { NgxFwFormComponent } from 'ngx-formwork';
+import { HybridComponentResolver } from './shared/resolvers/component-resolver';
+import { RadioControlComponent } from './shared/controls/radio/radio-control.component';
+import { DropdownControlComponent } from './shared/controls/dropdown/dropdown-control.component';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +16,27 @@ export class AppComponent {
   title = 'token-based-registration';
 
   private readonly formBuilder = inject(FormBuilder);
+  private readonly componentResolver = inject(HybridComponentResolver);
   readonly formContent = maintenanceForm;
 
   form = this.formBuilder.group({});
+
+  setChoiceMode(mode: 'radio' | 'dropdown') {
+    switch (mode) {
+      case 'radio':
+        this.componentResolver.updateDynamicComponent(
+          'choice',
+          RadioControlComponent,
+        );
+        break;
+      case 'dropdown':
+        this.componentResolver.updateDynamicComponent(
+          'choice',
+          DropdownControlComponent,
+        );
+        break;
+    }
+  }
 
   onSubmit(event: Event) {
     event.preventDefault();

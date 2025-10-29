@@ -1,5 +1,5 @@
-import { NgxFwForm } from 'ngx-formwork';
-import { FormControls } from '../shared/helper/form.type';
+import {NgxFwForm} from 'ngx-formwork';
+import {FormControls} from '../shared/helper/form.type';
 
 export const maintenanceForm: NgxFwForm<FormControls> = {
   content: {
@@ -103,7 +103,7 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
           ],
         },
         urgency: {
-          type: 'radio',
+          type: 'choice',
           label: 'Urgency',
           validators: ['required'],
           options: [

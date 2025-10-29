@@ -4,6 +4,8 @@
   </form>
 
   <div class="form-actions">
+    <button type="button" (click)="setChoiceMode('radio')">Set choice mode: radio</button>
+    <button type="button" (click)="setChoiceMode('dropdown')">Set choice mode: dropdown</button>
     <button type="submit" form="demo-form">Print to console</button>
     <button type="button" (click)="reset()">Reset</button>
   </div>
