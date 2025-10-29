@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'custom-resolver' title`, () => {
+  it(`should have the 'token-based-registration' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('custom-resolver');
+    expect(app.title).toEqual('token-based-registration');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, custom-resolver');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, token-based-registration');
   });
 });
