@@ -1,26 +1,28 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxfwControlDirective } from 'ngx-formwork';
-import { TextControl } from './text-control.type';
+import { TextareaControl } from './textarea-control.type';
 import { ngxfwControlHostDirective, viewProviders } from '../../helper';
 
 @Component({
-  selector: 'app-text-control',
+  selector: 'app-textarea-control',
   imports: [ReactiveFormsModule],
-  templateUrl: './text-control.component.html',
+  templateUrl: './textarea-control.component.html',
   viewProviders: viewProviders,
   hostDirectives: [ngxfwControlHostDirective],
 })
-export class TextControlComponent {
-  private readonly control = inject(NgxfwControlDirective<TextControl>);
-  readonly content: Signal<TextControl> = this.control.content;
+export class TextareaControlComponent {
+  private readonly control = inject(NgxfwControlDirective<TextareaControl>);
+  readonly content: Signal<TextareaControl> = this.control.content;
+  readonly name: Signal<string> = this.control.name;
 
   readonly label = computed(
     () => this.control.dynamicLabel() ?? this.content().label,
   );
-  readonly name: Signal<string> = this.control.name;
-  readonly hint = computed(() => this.content().hint);
   readonly placeholder = computed(() => this.content().placeHolder);
+  readonly rows = computed(() => this.content().rows);
+  readonly maxLength = computed(() => this.content().maxLength ?? null);
   readonly isHidden = this.control.isHidden;
+  readonly disabled = this.control.disabled;
   readonly readonly = this.control.readonly;
 }

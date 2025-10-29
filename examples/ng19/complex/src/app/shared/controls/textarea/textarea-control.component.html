@@ -1,13 +1,15 @@
 @if (!isHidden()) {
   <div class="inline-input">
     <label [htmlFor]="name()">{{ label() }}</label>
-    <input
-      type="number"
+    <textarea
+      type="text"
       [id]="name()"
-      [min]="min()"
-      [max]="max()"
+      [placeholder]="placeholder() ?? ''"
       [formControlName]="name()"
       [readonly]="readonly()"
-    />
+      [rows]="rows()"
+      [maxlength]="maxLength()"
+
+    ></textarea>
   </div>
 }

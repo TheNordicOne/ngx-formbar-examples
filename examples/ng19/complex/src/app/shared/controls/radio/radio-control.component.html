@@ -8,6 +8,8 @@
           [id]="option.id"
           [value]="option.value"
           [formControlName]="name()"
+          [readonly]="readonly()"
+
         />
         <label [htmlFor]="option.id">{{ option.label }}</label>
       }

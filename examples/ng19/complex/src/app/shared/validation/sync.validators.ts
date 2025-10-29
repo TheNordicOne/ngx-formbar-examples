@@ -4,7 +4,13 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { getByPath, isEmpty, toNumber } from './utilities';
+import {
+  asFiles,
+  getByPath,
+  isEmpty,
+  matchesAccept,
+  toNumber,
+} from './utilities';
 
 // Numeric validators
 export function integer(c: AbstractControl): ValidationErrors | null {
@@ -33,6 +39,21 @@ export function min0(c: AbstractControl): ValidationErrors | null {
   }
   if (n < 0) {
     return { min0: true };
+  }
+  return null;
+}
+
+export function min1(c: AbstractControl): ValidationErrors | null {
+  const v = c.value;
+  if (isEmpty(v)) {
+    return null;
+  }
+  const n = toNumber(v);
+  if (!Number.isFinite(n)) {
+    return { min1: true };
+  }
+  if (n < 1) {
+    return { min1: true };
   }
   return null;
 }
@@ -199,4 +220,41 @@ export function requiredWhenCriticalOrNeeded(
     default:
       return null;
   }
+}
+
+export function maxFiles5(control: AbstractControl) {
+  const files = asFiles(control.value);
+  if (files.length <= 5) {
+    return null;
+  }
+
+  return {
+    maxFiles5: {
+      max: 5,
+      actual: files.length,
+    },
+  };
+}
+
+export function fileTypesAllowed(accept: readonly string[]) {
+  return function (control: AbstractControl) {
+    const files = asFiles(control.value);
+    if (files.length === 0) {
+      return null;
+    }
+
+    const invalid = files
+      .filter((f) => !matchesAccept(f, accept))
+      .map((f) => f.name);
+    if (invalid.length === 0) {
+      return null;
+    }
+
+    return {
+      fileTypesAllowed: {
+        accept,
+        invalid,
+      },
+    };
+  };
 }

@@ -3,10 +3,13 @@ import { NGX_FW_VALIDATOR_REGISTRATIONS } from 'ngx-formwork';
 import {
   alnumDash,
   circuitPattern,
+  fileTypesAllowed,
   floorPattern,
   integer,
   isoDate,
+  maxFiles5,
   min0,
+  min1,
   minLen,
   range1to10,
   range1to480,
@@ -30,6 +33,7 @@ export const validatorRegistrationsProvider = {
     // Numeric
     ['integer', [integer]],
     ['min0', [min0]],
+    ['min1', [min1]],
     ['range1to10', [range1to10]],
     ['range1to480', [range1to480]],
 
@@ -43,5 +47,9 @@ export const validatorRegistrationsProvider = {
     ['requiredWhenVisible', [requiredWhenVisible]],
     ['requiredWhenCritical', [requiredWhenCritical]],
     ['requiredWhenCriticalOrNeeded', [requiredWhenCriticalOrNeeded]],
+
+    // Other
+    ['maxFiles5', [maxFiles5]],
+    ['imagesOrPdf', [fileTypesAllowed(['image/*', 'application/pdf', '.pdf'])]],
   ]),
 };

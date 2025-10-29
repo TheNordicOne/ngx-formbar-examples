@@ -7,6 +7,9 @@ import { RadioControlComponent } from '../shared/controls/radio/radio-control.co
 import { DropdownControlComponent } from '../shared/controls/dropdown/dropdown-control.component';
 import { GroupControlComponent } from '../shared/controls/group/group-control.component';
 import { NoteControlComponent } from '../shared/blocks/note/note-control.component';
+import { TextareaControlComponent } from '../shared/controls/textarea/textarea-control.component';
+import { DateControlComponent } from '../shared/controls/date/date-control.component';
+import { FileControlComponent } from '../shared/controls/file/file-control.component';
 
 export const componentRegistrationsProvider = {
   provide: NGX_FW_COMPONENT_REGISTRATIONS,
@@ -18,5 +21,8 @@ export const componentRegistrationsProvider = {
     ['dropdown', DropdownControlComponent],
     ['group', GroupControlComponent],
     ['note', NoteControlComponent],
-  ]),
+    ["textarea", TextareaControlComponent],
+    ["date", DateControlComponent],
+    ["file", FileControlComponent]
+]),
 };

@@ -22,5 +22,6 @@ export class GroupControlComponent {
 
   readonly controls: Signal<[string, NgxFwContent][]> = this.group.controls;
   readonly isHidden = this.group.isHidden;
+  readonly dynamicTitle = this.group.dynamicTitle;
   readonly legend = computed(() => this.content().legend);
 }

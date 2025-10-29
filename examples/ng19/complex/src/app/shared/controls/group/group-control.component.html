@@ -1,7 +1,7 @@
 @if (!isHidden()) {
   <ng-container [formGroupName]="name()">
     <fieldset>
-      <legend>{{ legend() }}</legend>
+      <legend>{{ dynamicTitle() ?? legend() }}</legend>
       @for (content of controls(); track content[0]) {
         <ng-template *ngxfwAbstractControl="content" />
       }

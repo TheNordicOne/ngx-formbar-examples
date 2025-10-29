@@ -4,6 +4,7 @@ import {
   approverActive,
   emailDomainAllowed,
   roomExists,
+  totalSizeUnder10mb,
   unitKnownAtLocation,
 } from '../shared/validation/async.validators';
 
@@ -14,5 +15,6 @@ export const asyncValidatorRegistrationsProvider = {
     ['roomExists', [roomExists]],
     ['unitKnownAtLocation', [unitKnownAtLocation]],
     ['approverActive', [approverActive]],
+    ['totalSizeUnder10mb', [totalSizeUnder10mb]],
   ]),
 };

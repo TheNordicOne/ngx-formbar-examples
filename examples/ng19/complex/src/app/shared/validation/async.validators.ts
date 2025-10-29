@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
-import { getByPath, isEmpty } from './utilities';
+import { asFiles, getByPath, isEmpty } from './utilities';
 import { map, of, timer } from 'rxjs';
 
 export function emailDomainAllowed(c: AbstractControl) {
@@ -121,4 +121,25 @@ export function approverActive(c: AbstractControl) {
       return { approverActive: { status: 'unknown', id } };
     }),
   );
+}
+
+export async function totalSizeUnder10mb(control: AbstractControl) {
+  const files = asFiles(control.value);
+  if (files.length === 0) {
+    return null;
+  }
+
+  const limit = 10 * 1024 * 1024; // 10 MiB
+  const total = files.reduce((sum, f) => sum + (f.size || 0), 0);
+
+  if (total <= limit) {
+    return null;
+  }
+
+  return {
+    totalSizeUnder10mb: {
+      limit,
+      actual: total,
+    },
+  };
 }

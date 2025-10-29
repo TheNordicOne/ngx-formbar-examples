@@ -15,7 +15,10 @@ export class CheckboxControlComponent {
   private readonly control = inject(NgxfwControlDirective<CheckboxControl>);
   readonly content: Signal<CheckboxControl> = this.control.content;
 
-  readonly label = computed(() => this.content().label);
+  readonly label = computed(
+    () => this.control.dynamicLabel() ?? this.content().label,
+  );
   readonly name: Signal<string> = this.control.name;
   readonly isHidden = this.control.isHidden;
+  readonly readonly = this.control.readonly;
 }
