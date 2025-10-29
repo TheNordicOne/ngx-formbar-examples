@@ -21,7 +21,7 @@ export const highlyComputedForm: NgxFwForm<FormControls> = {
     // --------- Simple cascades at root ---------
     rootEcho: {
       type: 'text',
-
+      label: '',
       readonly: 'true',
       computedValue: 'seed',
       dynamicLabel: '`Root Echo → ${seed ?? ""}`'
