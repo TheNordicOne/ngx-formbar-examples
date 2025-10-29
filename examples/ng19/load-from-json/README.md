@@ -1,3 +1,3 @@
-# Token Based Registration
+# Loading from Json
 
-This example shows how ngx-formwork with token based registrations. This is equal to the result of running `ng add ngx-formwork` without any parameters.
+This example demonstrates that a form can be configured entirely in JSON and loaded from a server.
