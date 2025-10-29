@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.form-wrapper {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+form {
+  width: min(800px, 100dvw);
+}
+
+form, ngxfw-form, fieldset {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.inline-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
