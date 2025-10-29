@@ -2,12 +2,12 @@
   <div class="inline-input">
     <label [htmlFor]="name()">{{ label() }}</label>
     <input
-      type="number"
+      type="date"
       [id]="name()"
-      [min]="min()"
-      [max]="max()"
       [formControlName]="name()"
       [readonly]="readonly()"
+      [min]="minDate()"
+      [max]="maxDate()"
     />
   </div>
 }

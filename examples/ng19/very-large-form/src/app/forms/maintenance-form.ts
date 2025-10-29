@@ -59,7 +59,7 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
         contactNumber: {
           type: 'text',
           label: 'Contact number',
-          hidden: "requester && requester.isOnsite === 'yes'",
+          hidden: "requester && requester.isOnsite === 'no'",
           hideStrategy: 'keep', // keep for summaries even if hidden
         },
       },

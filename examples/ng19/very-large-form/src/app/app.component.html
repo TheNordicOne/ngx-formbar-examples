@@ -1,4 +1,10 @@
 <div class="form-wrapper">
+  <div class="form-switcher" style="margin-bottom: 1rem; display:flex; gap:.5rem; align-items:center;">
+    <span>Form:</span>
+    <button type="button" (click)="useForm('maintenance')">Maintenance</button>
+    <button type="button" (click)="useForm('computed')">Highly Computed</button>
+  </div>
+
   <form id="demo-form" [formGroup]="form" (ngSubmit)="onSubmit($event)">
     <ngxfw-form [formConfig]="formContent" />
   </form>

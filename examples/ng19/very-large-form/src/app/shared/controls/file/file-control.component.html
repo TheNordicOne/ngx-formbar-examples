@@ -2,12 +2,12 @@
   <div class="inline-input">
     <label [htmlFor]="name()">{{ label() }}</label>
     <input
-      type="number"
+      type="file"
       [id]="name()"
-      [min]="min()"
-      [max]="max()"
       [formControlName]="name()"
       [readonly]="readonly()"
+      [multiple]="multiple()"
+      [accept]="accept()"
     />
   </div>
 }

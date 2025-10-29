@@ -15,9 +15,12 @@ export class NumberControlComponent {
   private readonly control = inject(NgxfwControlDirective<NumberControl>);
   readonly content: Signal<NumberControl> = this.control.content;
 
-  readonly label = computed(() => this.content().label);
+  readonly label = computed(
+    () => this.control.dynamicLabel() ?? this.content().label,
+  );
   readonly name: Signal<string> = this.control.name;
   readonly min = computed(() => this.content().min);
   readonly max = computed(() => this.content().max ?? null);
   readonly isHidden = this.control.isHidden;
+  readonly readonly = this.control.readonly;
 }

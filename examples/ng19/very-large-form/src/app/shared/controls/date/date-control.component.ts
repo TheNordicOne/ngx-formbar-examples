@@ -1,25 +1,27 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxfwControlDirective } from 'ngx-formwork';
-import { DropdownControl } from './dropdown-control.type';
+import { DateControl } from './date-control.type';
 import { ngxfwControlHostDirective, viewProviders } from '../../helper';
 
 @Component({
-  selector: 'app-dropdown-control',
+  selector: 'app-date-control',
   imports: [ReactiveFormsModule],
-  templateUrl: './dropdown-control.component.html',
+  templateUrl: './date-control.component.html',
   viewProviders: viewProviders,
   hostDirectives: [ngxfwControlHostDirective],
 })
-export class DropdownControlComponent {
-  private readonly control = inject(NgxfwControlDirective<DropdownControl>);
-  readonly content: Signal<DropdownControl> = this.control.content;
+export class DateControlComponent {
+  private readonly control = inject(NgxfwControlDirective<DateControl>);
+  readonly content: Signal<DateControl> = this.control.content;
+  readonly name: Signal<string> = this.control.name;
 
   readonly label = computed(
     () => this.control.dynamicLabel() ?? this.content().label,
   );
-  readonly name: Signal<string> = this.control.name;
-  readonly options = computed(() => this.content().options);
+
+  readonly minDate = computed(() => this.content().minDate);
+  readonly maxDate = computed(() => this.content().maxDate);
   readonly isHidden = this.control.isHidden;
   readonly readonly = this.control.readonly;
 }

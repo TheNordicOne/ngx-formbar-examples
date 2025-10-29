@@ -15,8 +15,11 @@ export class RadioControlComponent {
   private readonly control = inject(NgxfwControlDirective<RadioControl>);
   readonly content: Signal<RadioControl> = this.control.content;
 
-  readonly label = computed(() => this.content().label);
+  readonly label = computed(
+    () => this.control.dynamicLabel() ?? this.content().label,
+  );
   readonly name: Signal<string> = this.control.name;
   readonly options = computed(() => this.content().options);
   readonly isHidden = this.control.isHidden;
+  readonly readonly = this.control.readonly;
 }
