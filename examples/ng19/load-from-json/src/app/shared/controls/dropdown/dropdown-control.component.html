@@ -1,0 +1,12 @@
+@if (!isHidden()) {
+  <div class="inline-input">
+    <label>{{ label() }}</label>
+    <select [formControlName]="name()">
+      @for (option of options(); track option) {
+        <option [id]="option.id" [value]="option.value">
+          {{ option.label }}
+        </option>
+      }
+    </select>
+  </div>
+}

@@ -1,0 +1,13 @@
+<div class="form-wrapper">
+  @let formConfig = formContent();
+  @if (formConfig) {
+    <form id="demo-form" [formGroup]="form" (ngSubmit)="onSubmit($event)">
+      <ngxfw-form [formConfig]="formConfig" />
+    </form>
+  }
+
+  <div class="form-actions">
+    <button type="submit" form="demo-form">Print to console</button>
+    <button type="button" (click)="reset()">Reset</button>
+  </div>
+</div>
