@@ -1,6 +1,38 @@
 import { NgxFwForm } from 'ngx-formwork';
 import { FormControls } from '../shared/helper/form.type';
 
+// Workaround to get typing support for nested properties
+// In the future this can be handled better
+type MaintenanceFormType = {
+  costs: {
+    hourlyRate: number;
+    laborHours: number;
+    materialCosts: number;
+    currency: number;
+  };
+  details: {
+    urgency: string;
+    category: string;
+    description: string;
+    peopleAffected: number;
+  };
+  sla: {
+    targetDays: number;
+  };
+  scheduling: {
+    preferredDate: string;
+    downtimeMinutes: number;
+  };
+  requester: {
+    fullName: string;
+    email: string;
+  };
+  location: {
+    building: string;
+    room: string;
+  };
+};
+
 export const maintenanceForm: NgxFwForm<FormControls> = {
   content: {
     // --- Context banner ------------------------------------------------------
@@ -87,7 +119,8 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
     // --- Details -------------------------------------------------------------
     details: {
       type: 'group',
-      legend: 'Issue Details',
+      dynamicTitle:
+        "'Issue Details' + (details && details.category ? ' — ' + details.category : '')",
       controls: {
         category: {
           type: 'dropdown',
@@ -131,17 +164,15 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
           hidden: 'details.affectedAsset !== "other"',
           hideStrategy: 'remove',
           valueStrategy: 'reset',
-          // validators: ['requiredWhenVisible'],
         },
         description: {
-          type: 'text',
+          type: 'textarea',
           label: 'Description',
-          placeHolder:
-            'Describe the issue with specific symptoms, locations, and times…',
+          placeHolder: 'Describe the issue with symptoms, location, timing…',
           validators: ['required', 'min20Characters'],
+          updateOn: 'blur',
         },
 
-        // Impact quick metrics (numbers)
         peopleAffected: {
           type: 'number',
           label: 'People Affected (estimate)',
@@ -151,15 +182,18 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
         },
         impactScore: {
           type: 'number',
-          label: 'Impact Score (1–10)',
+          label: '',
+          dynamicLabel:
+            "'Impact Score' + (details && details.urgency === 'critical' ? ' (required)' : '')",
           min: 1,
           max: 10,
-          validators: ['required', 'integer', 'range1to10'],
+          validators: ['integer', 'range1to10', 'requiredWhenCritical'],
+          updateOn: 'change',
         },
       },
     },
 
-    // --- Category-specific (single-slot, no arrays) --------------------------
+    // --- HVAC Details --------------------------
     hvacDetails: {
       type: 'group',
       legend: 'HVAC Details',
@@ -229,16 +263,17 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
       },
     },
 
-    // --- Scheduling (single window) -----------------------------------------
+    // --- Scheduling -----------------------------------------
     scheduling: {
       type: 'group',
       legend: 'Scheduling',
       controls: {
         preferredDate: {
-          type: 'text',
+          type: 'date',
           label: 'Preferred Date',
-          placeHolder: 'YYYY-MM-DD',
+          minDate: 'today',
           validators: ['isoDate'],
+          updateOn: 'change',
         },
         preferredSlot: {
           type: 'dropdown',
@@ -266,10 +301,11 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
       },
     },
 
-    // --- Approvals (conditional) --------------------------------------------
+    // --- Approvals --------------------------------------------
     approvals: {
       type: 'group',
-      legend: 'Approvals',
+      dynamicTitle:
+        "'Approvals' + (details && details.urgency ? ' — ' + details.urgency : '')",
       hidden: '!(details.urgency === "high" || details.urgency === "critical")',
       hideStrategy: 'remove',
       valueStrategy: 'reset',
@@ -277,7 +313,6 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
         needsManager: {
           type: 'checkbox',
           label: 'Manager approval obtained',
-          // Sync rule example can check this when urgency is critical
           validators: ['requiredWhenCritical'],
         },
         approver: {
@@ -292,6 +327,7 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
               label: 'Facilities Lead',
             },
           ],
+          disabled: '!approvals?.needsManager',
           validators: ['requiredWhenCriticalOrNeeded'],
           asyncValidators: ['approverActive'],
         },
@@ -299,17 +335,205 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
           type: 'text',
           label: 'Approval Note (optional)',
           placeHolder: 'Ticket reference or verbal approval details…',
+          readonly: '!approvals?.needsManager',
+        },
+      },
+    },
+
+    // --- Costs ------------------------------------
+    costs: {
+      type: 'group',
+      legend: 'Costs',
+      dynamicTitle: "'Costs (' + ((costs && costs.currency) || 'EUR') + ')'",
+      controls: {
+        currency: {
+          type: 'dropdown',
+          label: 'Currency',
+          options: [
+            { id: 'cur-eur', value: 'EUR', label: 'EUR' },
+            { id: 'cur-usd', value: 'USD', label: 'USD' },
+            { id: 'cur-gbp', value: 'GBP', label: 'GBP' },
+          ],
+          validators: ['required'],
+          updateOn: 'change',
+        },
+        hourlyRate: {
+          type: 'number',
+          label: 'Hourly Rate',
+          min: 0,
+          validators: ['min0'],
+          updateOn: 'blur',
+        },
+        laborHours: {
+          type: 'number',
+          label: 'Labor Hours',
+          min: 0,
+          validators: ['min0'],
+          updateOn: 'blur',
+        },
+        materialCosts: {
+          type: 'number',
+          label: 'Material Costs',
+          min: 0,
+          validators: ['min0'],
+          updateOn: 'blur',
+        },
+        totalCost: {
+          type: 'text',
+          label: 'Estimated Total',
+          readonly: true,
+          computedValue: (v) => {
+            const value = v as MaintenanceFormType;
+            const rate = Number(value.costs?.hourlyRate ?? 0);
+            const hours = Number(value.costs?.laborHours ?? 0);
+            const materials = Number(value.costs?.materialCosts ?? 0);
+            const sum = rate * hours + materials;
+            const cur = value.costs?.currency ?? 'EUR';
+            return `${sum.toFixed(2)} ${cur}`;
+          },
+        },
+      },
+    },
+
+    // --- SLA -------------------------
+    sla: {
+      type: 'group',
+      legend: 'SLA',
+      hidden:
+        "!details || !(details.urgency === 'high' || details.urgency === 'critical')",
+      hideStrategy: 'remove',
+      valueStrategy: 'reset',
+      dynamicTitle: "'SLA (' + (details && details.urgency || 'n/a') + ')'",
+      controls: {
+        targetDays: {
+          type: 'number',
+          label: 'Target (days)',
+          min: 1,
+          validators: ['integer', 'min1'],
+          updateOn: 'blur',
+        },
+        deadline: {
+          type: 'text',
+          label: 'SLA Deadline (computed)',
+          readonly: true,
+          computedValue: (v) => {
+            const value = v as MaintenanceFormType;
+            const urgency = value.details?.urgency;
+            const override = Number(value.sla?.targetDays ?? 0);
+            const days =
+              override > 0
+                ? override
+                : urgency === 'critical'
+                  ? 1
+                  : urgency === 'high'
+                    ? 2
+                    : 5;
+            const start = value.scheduling?.preferredDate || '';
+            const base = start ? new Date(start) : new Date();
+            base.setDate(base.getDate() + days);
+            return base.toISOString().slice(0, 10);
+          },
+          updateOn: 'change',
+        },
+      },
+    },
+
+    // --- Attachments ----------------
+    attachments: {
+      type: 'group',
+      legend: 'Attachments',
+      controls: {
+        files: {
+          type: 'file',
+          label: 'Attach images or PDFs',
+          multiple: true,
+          accept: ['image/*', 'application/pdf'],
+          validators: ['maxFiles5', 'imagesOrPdf'],
+          asyncValidators: ['totalSizeUnder10mb'],
+          updateOn: 'change',
+        },
+        attachmentsNote: {
+          type: 'note',
+          isControl: false,
+          severity: 'warn',
+          message: 'Avoid sensitive data. Redact personally identifiable info.',
+        },
+      },
+    },
+
+    // --- Summary ------------
+    summary: {
+      type: 'group',
+      legend: 'Summary',
+      controls: {
+        ticketPreview: {
+          type: 'textarea',
+          label: 'Request Summary (auto)',
+          readonly: true,
+          computedValue: (v) => {
+            const value = v as MaintenanceFormType;
+            const name = value.requester?.fullName || 'Unknown';
+            const email = value.requester?.email || 'n/a';
+            const bldg = value.location?.building || '?';
+            const room = value.location?.room || '?';
+            const cat = value.details?.category || 'unspecified';
+            const descr = value.details?.description || '';
+            return [
+              `Requester: ${name} <${email}>`,
+              `Location: Building ${bldg}, Room ${room}`,
+              `Category: ${cat}`,
+              `Description: ${descr}`,
+            ].join('\n');
+          },
+          updateOn: 'change',
+          rows: 6,
+          maxLength: 2000,
+        },
+        priorityScore: {
+          type: 'text',
+          label: '',
+          dynamicLabel:
+            "'Priority Score' + (peopleAffected && peopleAffected > 50 ? ' (High impact)' : '')",
+          readonly: true,
+          computedValue: (v) => {
+            const value = v as MaintenanceFormType;
+            const urgency = value.details?.urgency ?? 'low';
+            const people = Number(value.details?.peopleAffected ?? 0);
+            const dowMin = Number(value.scheduling?.downtimeMinutes ?? 0);
+            const u =
+              urgency === 'critical'
+                ? 5
+                : urgency === 'high'
+                  ? 4
+                  : urgency === 'medium'
+                    ? 3
+                    : 1;
+            const score =
+              u * 10 +
+              Math.min(50, Math.floor(people / 5)) +
+              Math.min(20, Math.floor(dowMin / 15));
+            return String(Math.min(100, score));
+          },
+          updateOn: 'change',
         },
       },
     },
 
     // --- Consent / Submission ------------------------------------------------
-    submitNote: {
-      isControl: false,
+    privacyAck: {
+      type: 'checkbox',
+      label: 'I understand data handling and privacy policy',
+      validators: ['requiredTrue'],
+      updateOn: 'change',
+    },
+    privacyNote: {
       type: 'note',
-      severity: 'danger',
+      isControl: false,
+      hidden: '!privacyAck',
+      hideStrategy: 'keep',
       message:
-        'Do not include sensitive personal data. The request and location may be shared with service providers.',
+        'Your request may be shared with service providers for resolution.',
+      severity: 'info',
     },
     policyAccepted: {
       type: 'checkbox',
@@ -318,4 +542,4 @@ export const maintenanceForm: NgxFwForm<FormControls> = {
       validators: ['requiredTrue'],
     },
   },
-};
+} as const;

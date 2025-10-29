@@ -9,5 +9,12 @@ import { validatorRegistrationsProvider } from './registrations';
 import { asyncValidatorRegistrationsProvider } from './registrations';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideFormwork(formworkConfig), componentRegistrationsProvider, validatorRegistrationsProvider, asyncValidatorRegistrationsProvider]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideFormwork(formworkConfig),
+    componentRegistrationsProvider,
+    validatorRegistrationsProvider,
+    asyncValidatorRegistrationsProvider,
+  ],
 };
