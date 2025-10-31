@@ -1,4 +1,4 @@
-import { ComponentRegistrationConfig } from 'ngx-formwork';
+import { ComponentRegistrationConfig } from '@ngx-formbar/core';
 import { TextControlComponent } from '../shared/controls/text/text-control.component';
 import { NumberControlComponent } from '../shared/controls/number/number-control.component';
 import { CheckboxControlComponent } from '../shared/controls/checkbox/checkbox-control.component';

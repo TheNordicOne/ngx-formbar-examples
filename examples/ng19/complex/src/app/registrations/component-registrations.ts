@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { NGX_FW_COMPONENT_REGISTRATIONS } from 'ngx-formwork';
+import { NGX_FW_COMPONENT_REGISTRATIONS } from '@ngx-formbar/core';
 import { TextControlComponent } from '../shared/controls/text/text-control.component';
 import { NumberControlComponent } from '../shared/controls/number/number-control.component';
 import { CheckboxControlComponent } from '../shared/controls/checkbox/checkbox-control.component';
@@ -21,8 +21,8 @@ export const componentRegistrationsProvider = {
     ['dropdown', DropdownControlComponent],
     ['group', GroupControlComponent],
     ['note', NoteControlComponent],
-    ["textarea", TextareaControlComponent],
-    ["date", DateControlComponent],
-    ["file", FileControlComponent]
-]),
+    ['textarea', TextareaControlComponent],
+    ['date', DateControlComponent],
+    ['file', FileControlComponent],
+  ]),
 };

@@ -1,18 +1,18 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxfwControlDirective } from 'ngx-formwork';
+import { NgxfbControlDirective } from '@ngx-formbar/core';
 import { NumberControl } from './number-control.type';
-import { ngxfwControlHostDirective, viewProviders } from '../../helper';
+import { ngxfbControlHostDirective, viewProviders } from '../../helper';
 
 @Component({
   selector: 'app-number-control',
   imports: [ReactiveFormsModule],
   templateUrl: './number-control.component.html',
   viewProviders: viewProviders,
-  hostDirectives: [ngxfwControlHostDirective],
+  hostDirectives: [ngxfbControlHostDirective],
 })
 export class NumberControlComponent {
-  private readonly control = inject(NgxfwControlDirective<NumberControl>);
+  private readonly control = inject(NgxfbControlDirective<NumberControl>);
   readonly content: Signal<NumberControl> = this.control.content;
 
   readonly label = computed(

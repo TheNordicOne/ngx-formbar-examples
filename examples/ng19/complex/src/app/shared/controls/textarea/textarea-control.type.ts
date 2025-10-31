@@ -1,6 +1,6 @@
-import { NgxFwControl } from 'ngx-formwork';
+import { NgxFbControl } from '@ngx-formbar/core';
 
-export interface TextareaControl extends NgxFwControl {
+export interface TextareaControl extends NgxFbControl {
   type: 'textarea';
   rows?: number;
   maxLength?: number;

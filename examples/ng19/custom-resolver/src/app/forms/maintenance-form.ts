@@ -1,7 +1,7 @@
-import {NgxFwForm} from 'ngx-formwork';
-import {FormControls} from '../shared/helper/form.type';
+import { NgxFbForm } from '@ngx-formbar/core';
+import { FormControls } from '../shared/helper/form.type';
 
-export const maintenanceForm: NgxFwForm<FormControls> = {
+export const maintenanceForm: NgxFbForm<FormControls> = {
   content: {
     // --- Context banner ------------------------------------------------------
     introNote: {

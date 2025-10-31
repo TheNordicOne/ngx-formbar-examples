@@ -1,7 +1,7 @@
-import {NgxFwForm} from 'ngx-formwork';
+import {NgxFbForm} from '@ngx-formbar/core';
 import {FormControls} from '../shared/helper/form.type';
 
-export const highlyComputedForm: NgxFwForm<FormControls> = {
+export const highlyComputedForm: NgxFbForm<FormControls> = {
   content: {
     // --------- Seeds / Toggles ---------
     seed: {

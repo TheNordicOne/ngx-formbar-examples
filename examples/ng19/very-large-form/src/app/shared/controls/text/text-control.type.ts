@@ -1,6 +1,6 @@
-import { NgxFwControl } from 'ngx-formwork';
+import {NgxFbControl} from '@ngx-formbar/core';
 
-export interface TextControl extends NgxFwControl {
+export interface TextControl extends NgxFbControl {
   type: 'text';
   defaultValue?: string;
 

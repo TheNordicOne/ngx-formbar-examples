@@ -1,5 +1,5 @@
 import { ValidatorFn, Validators } from '@angular/forms';
-import { NGX_FW_VALIDATOR_REGISTRATIONS } from 'ngx-formwork';
+import { NGX_FW_VALIDATOR_REGISTRATIONS } from '@ngx-formbar/core';
 import {
   alnumDash,
   circuitPattern,

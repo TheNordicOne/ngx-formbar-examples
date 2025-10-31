@@ -1,0 +1,4 @@
+import {defineFormbarConfig} from '@ngx-formbar/core';
+
+export const formbarConfig = defineFormbarConfig({});
+

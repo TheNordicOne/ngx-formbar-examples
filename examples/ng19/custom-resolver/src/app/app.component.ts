@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { maintenanceForm } from './forms/maintenance-form';
-import { NgxFwFormComponent } from 'ngx-formwork';
+import { NgxfbFormComponent } from '@ngx-formbar/core';
 import { HybridComponentResolver } from './shared/resolvers/component-resolver';
 import { RadioControlComponent } from './shared/controls/radio/radio-control.component';
 import { DropdownControlComponent } from './shared/controls/dropdown/dropdown-control.component';
 
 @Component({
   selector: 'app-root',
-  imports: [NgxFwFormComponent, ReactiveFormsModule],
+  imports: [NgxfbFormComponent, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

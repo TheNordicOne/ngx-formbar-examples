@@ -1,18 +1,18 @@
-import { Component, computed, inject, Signal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgxfwControlDirective } from 'ngx-formwork';
-import { TextareaControl } from './textarea-control.type';
-import { ngxfwControlHostDirective, viewProviders } from '../../helper';
+import {Component, computed, inject, Signal} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxfbControlDirective} from '@ngx-formbar/core';
+import {TextareaControl} from './textarea-control.type';
+import {ngxfbControlHostDirective, viewProviders} from '../../helper';
 
 @Component({
   selector: 'app-textarea-control',
   imports: [ReactiveFormsModule],
   templateUrl: './textarea-control.component.html',
   viewProviders: viewProviders,
-  hostDirectives: [ngxfwControlHostDirective],
+  hostDirectives: [ngxfbControlHostDirective],
 })
 export class TextareaControlComponent {
-  private readonly control = inject(NgxfwControlDirective<TextareaControl>);
+  private readonly control = inject(NgxfbControlDirective<TextareaControl>);
   readonly content: Signal<TextareaControl> = this.control.content;
   readonly name: Signal<string> = this.control.name;
 

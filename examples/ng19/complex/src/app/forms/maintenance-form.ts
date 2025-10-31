@@ -1,5 +1,5 @@
-import { NgxFwForm } from 'ngx-formwork';
-import { FormControls } from '../shared/helper/form.type';
+import { NgxFbForm } from '@ngx-formbar/core';
+import { FormControls } from '../shared/helper/form.type'; // Workaround to get typing support for nested properties
 
 // Workaround to get typing support for nested properties
 // In the future this can be handled better
@@ -33,7 +33,7 @@ type MaintenanceFormType = {
   };
 };
 
-export const maintenanceForm: NgxFwForm<FormControls> = {
+export const maintenanceForm: NgxFbForm<FormControls> = {
   content: {
     // --- Context banner ------------------------------------------------------
     introNote: {

@@ -1,6 +1,6 @@
-import { NgxFwControl } from 'ngx-formwork';
+import {NgxFbControl} from '@ngx-formbar/core';
 
-export interface NumberControl extends NgxFwControl {
+export interface NumberControl extends NgxFbControl {
   type: 'number';
 
   min: number;

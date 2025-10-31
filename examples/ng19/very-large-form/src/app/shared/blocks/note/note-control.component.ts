@@ -1,21 +1,21 @@
-import { Component, computed, inject, Signal } from '@angular/core';
-import { NgxfwBlockDirective } from 'ngx-formwork';
-import { NoteControl } from './note-control.type';
-import { ngxfwBlockHostDirective, viewProviders } from '../../helper';
+import {Component, computed, inject, Signal} from '@angular/core';
+import {NgxfbBlockDirective} from '@ngx-formbar/core';
+import {NoteControl} from './note-control.type';
+import {ngxfbBlockHostDirective, viewProviders} from '../../helper';
 
 @Component({
   selector: 'app-note-control',
   imports: [],
   templateUrl: './note-control.component.html',
   viewProviders: viewProviders,
-  hostDirectives: [ngxfwBlockHostDirective],
+  hostDirectives: [ngxfbBlockHostDirective],
   host: {
     '[style.--color]': 'color()',
     '[style.--background]': 'background()',
   },
 })
 export class NoteControlComponent {
-  private readonly block = inject(NgxfwBlockDirective<NoteControl>);
+  private readonly block = inject(NgxfbBlockDirective<NoteControl>);
   readonly content: Signal<NoteControl> = this.block.content;
 
   readonly message = computed(() => this.content().message);

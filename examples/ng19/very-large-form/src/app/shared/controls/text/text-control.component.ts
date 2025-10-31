@@ -1,18 +1,18 @@
 import {Component, computed, inject, Signal} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {NgxfwControlDirective} from 'ngx-formwork';
+import {NgxfbControlDirective} from '@ngx-formbar/core';
 import {TextControl} from './text-control.type';
-import {ngxfwControlHostDirective, viewProviders} from '../../helper';
+import {ngxfbControlHostDirective, viewProviders} from '../../helper';
 
 @Component({
   selector: 'app-text-control',
   imports: [ReactiveFormsModule],
   templateUrl: './text-control.component.html',
   viewProviders: viewProviders,
-  hostDirectives: [ngxfwControlHostDirective],
+  hostDirectives: [ngxfbControlHostDirective],
 })
 export class TextControlComponent {
-  private readonly control = inject(NgxfwControlDirective<TextControl>);
+  private readonly control = inject(NgxfbControlDirective<TextControl>);
   readonly content: Signal<TextControl> = this.control.content;
 
   readonly label = computed(

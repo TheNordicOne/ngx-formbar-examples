@@ -9,7 +9,7 @@ import {
 import {
   ComponentResolver,
   NGX_FW_COMPONENT_REGISTRATIONS,
-} from 'ngx-formwork';
+} from '@ngx-formbar/core';
 
 @Injectable()
 export class HybridComponentResolver implements ComponentResolver {

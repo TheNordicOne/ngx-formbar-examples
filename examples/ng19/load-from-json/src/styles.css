@@ -12,7 +12,7 @@ form {
   width: min(800px, 100dvw);
 }
 
-form, ngxfw-form, fieldset {
+form, ngxfb-form, fieldset {
   display: grid;
   gap: 1rem;
 }

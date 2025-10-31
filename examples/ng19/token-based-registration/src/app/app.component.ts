@@ -1,11 +1,11 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {maintenanceForm} from './forms/maintenance-form';
-import {NgxFwFormComponent} from 'ngx-formwork';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { maintenanceForm } from './forms/maintenance-form';
+import { NgxfbFormComponent } from '@ngx-formbar/core';
 
 @Component({
   selector: 'app-root',
-  imports: [NgxFwFormComponent, ReactiveFormsModule],
+  imports: [NgxfbFormComponent, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

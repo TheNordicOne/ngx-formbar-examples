@@ -1,6 +1,6 @@
-import { NgxFwBlock } from 'ngx-formwork';
+import { NgxFbBlock } from '@ngx-formbar/core';
 
-export interface NoteControl extends NgxFwBlock {
+export interface NoteControl extends NgxFbBlock {
   type: 'note';
 
   message: string;

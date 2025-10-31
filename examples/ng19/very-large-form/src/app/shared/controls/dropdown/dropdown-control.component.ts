@@ -1,18 +1,18 @@
-import { Component, computed, inject, Signal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgxfwControlDirective } from 'ngx-formwork';
-import { DropdownControl } from './dropdown-control.type';
-import { ngxfwControlHostDirective, viewProviders } from '../../helper';
+import {Component, computed, inject, Signal} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxfbControlDirective} from '@ngx-formbar/core';
+import {DropdownControl} from './dropdown-control.type';
+import {ngxfbControlHostDirective, viewProviders} from '../../helper';
 
 @Component({
   selector: 'app-dropdown-control',
   imports: [ReactiveFormsModule],
   templateUrl: './dropdown-control.component.html',
   viewProviders: viewProviders,
-  hostDirectives: [ngxfwControlHostDirective],
+  hostDirectives: [ngxfbControlHostDirective],
 })
 export class DropdownControlComponent {
-  private readonly control = inject(NgxfwControlDirective<DropdownControl>);
+  private readonly control = inject(NgxfbControlDirective<DropdownControl>);
   readonly content: Signal<DropdownControl> = this.control.content;
 
   readonly label = computed(

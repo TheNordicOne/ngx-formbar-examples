@@ -1,5 +1,5 @@
 import { AsyncValidatorFn } from '@angular/forms';
-import { NGX_FW_ASYNC_VALIDATOR_REGISTRATIONS } from 'ngx-formwork';
+import { NGX_FW_ASYNC_VALIDATOR_REGISTRATIONS } from '@ngx-formbar/core';
 import {
   approverActive,
   emailDomainAllowed,

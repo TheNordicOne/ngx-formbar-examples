@@ -1,4 +1,4 @@
-import { RegistrationRecord, ValidatorConfig } from 'ngx-formwork';
+import { RegistrationRecord, ValidatorConfig } from '@ngx-formbar/core';
 import { Validators } from '@angular/forms';
 import {
   alnumDash,

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NgxFwForm, NgxFwFormComponent } from 'ngx-formwork';
+import { NgxFbForm, NgxfbFormComponent } from '@ngx-formbar/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControls } from './shared/helper/form.type';
 
 @Component({
   selector: 'app-root',
-  imports: [NgxFwFormComponent, ReactiveFormsModule],
+  imports: [NgxfbFormComponent, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -20,7 +20,7 @@ export class AppComponent {
   form = this.formBuilder.group({});
 
   readonly formContent = toSignal(
-    this.httpClient.get<NgxFwForm<FormControls>>('/maintenanceForm.json'),
+    this.httpClient.get<NgxFbForm<FormControls>>('/maintenanceForm.json'),
   );
 
   onSubmit(event: Event) {

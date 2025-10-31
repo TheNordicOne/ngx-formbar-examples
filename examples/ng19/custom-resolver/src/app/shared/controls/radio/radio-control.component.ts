@@ -1,18 +1,18 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxfwControlDirective } from 'ngx-formwork';
+import { NgxfbControlDirective } from '@ngx-formbar/core';
 import { RadioControl } from './radio-control.type';
-import { ngxfwControlHostDirective, viewProviders } from '../../helper';
+import { ngxfbControlHostDirective, viewProviders } from '../../helper';
 
 @Component({
   selector: 'app-radio-control',
   imports: [ReactiveFormsModule],
   templateUrl: './radio-control.component.html',
   viewProviders: viewProviders,
-  hostDirectives: [ngxfwControlHostDirective],
+  hostDirectives: [ngxfbControlHostDirective],
 })
 export class RadioControlComponent {
-  private readonly control = inject(NgxfwControlDirective<RadioControl>);
+  private readonly control = inject(NgxfbControlDirective<RadioControl>);
   readonly content: Signal<RadioControl> = this.control.content;
 
   readonly label = computed(() => this.content().label);

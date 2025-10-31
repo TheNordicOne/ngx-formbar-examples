@@ -1,9 +1,9 @@
-import {NgxFwForm} from 'ngx-formwork';
+import {NgxFbForm} from '@ngx-formbar/core';
 import {FormControls} from '../shared/helper/form.type';
 import {MaintenanceRequest} from './maintance-request.type';
 
 
-export const maintenanceForm: NgxFwForm<FormControls> = {
+export const maintenanceForm: NgxFbForm<FormControls> = {
   content: {
     // ---------- Intro & Guidance ----------
     intro: {

@@ -1,6 +1,6 @@
-import { NgxFwFormGroup } from 'ngx-formwork';
+import {NgxFbFormGroup} from '@ngx-formbar/core';
 
-export interface GroupControl extends NgxFwFormGroup {
+export interface GroupControl extends NgxFbFormGroup {
   type: 'group';
   legend?: string;
 }
